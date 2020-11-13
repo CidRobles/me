@@ -1,54 +1,24 @@
-// Customize this 'myform.js' script and add it to your JS bundle.
-// Then import it with 'import MyForm from "./myform.js"'.
-// Finally, add a <MyForm/> element whereever you wish to display the form.
+import React from 'react';
 
-import React from "react";
-
-class ContactForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.submitForm = this.submitForm.bind(this);
-        this.state = {
-            status: ""
-        };
-    }
-
-    render() {
-        const { status } = this.state;
-        return (
-            <form
-                onSubmit={this.submitForm}
-                action="https://formspree.io/xzbjyrgj"
-                method="POST"
-            >
-                <label>Email:</label>
-                <input type="email" name="email" />
-                <label>Message:</label>
-                <input type="text" name="message" />
-                {status === "SUCCESS" ? <p>Thanks!</p> : <button>Submit</button>}
-                {status === "ERROR" && <p>Ooops! There was an error.</p>}
-            </form>
-        );
-    }
-
-    submitForm(ev) {
-        ev.preventDefault();
-        const form = ev.target;
-        const data = new FormData(form);
-        const xhr = new XMLHttpRequest();
-        xhr.open(form.method, form.action);
-        xhr.setRequestHeader("Accept", "application/json");
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState !== XMLHttpRequest.DONE) return;
-            if (xhr.status === 200) {
-                form.reset();
-                this.setState({ status: "SUCCESS" });
-            } else {
-                this.setState({ status: "ERROR" });
-            }
-        };
-        xhr.send(data);
-    }
+function ContactForm() {
+    return (
+        <form class="w-full mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="p-5">
+                <input class="w-full appearance-none bg-transparent p-2 border-b border-gray-500 focus:outline-none focus:border-teal-500" type="text" placeholder="First Name" aria-label="First Name"></input>                                                        
+                </div>
+                <div className="p-5">
+                <input class="w-full appearance-none bg-transparent p-2 border-b border-gray-500 focus:outline-none focus:border-teal-500" type="text" placeholder="Last Name" aria-label="Last Name"></input>                                                    
+                </div>
+                <div className="p-5">
+                <input class="w-full appearance-none bg-transparent p-2 border-b border-gray-500 focus:outline-none focus:border-teal-500" type="email" placeholder="Email Address" aria-label="Email Address"></input>                                                        
+                </div>
+                <div className="p-5">
+                <input class="w-full appearance-none bg-transparent p-2 border-b border-gray-500 focus:outline-none focus:border-teal-500" type="text" placeholder="Phone number" aria-label="Phone number"></input>                                                    
+                </div>                 
+            </div>
+        </form>
+    );
 }
 
 export default ContactForm;
